@@ -1,0 +1,79 @@
+show databases;
+use mydb;
+
+show tables;
+
+select * from atleta;
+select * from treinador;
+
+insert into atleta values (1,"Maria");
+insert into atleta values (2,"Pedro");
+
+-- insert into atleta (nome) values ("Pedro");
+
+delete  from Atleta
+	where idAtleta = 3;
+    
+insert into atleta values 
+(3,"yasmin"),
+(4,"rafael"),
+(5,"daniel");
+
+insert into modalidade values 
+(500,"Beach Tenis"),
+(501,"Padel"),
+(502,"Volei de areaia");
+
+insert into clube values 
+(100,"Star Padel"),
+(101,"fair play"),
+(102,"Elite"),
+(103,"8000 Sports"),
+(104,"pier beach tenis");
+
+insert into treinador values 
+(1000,"Lucas",100),
+(1001,"Pato",101),
+(1002,"Jader",102),
+(1003,"Enrico",103);
+
+INSERT INTO modalidade_has_treinador (ModalidadeTreinador, modalidade, treinador) 
+VALUES  
+(1, 500, 1002), 
+(2, 500, 1003), 
+(3, 501, 1000), 
+(4, 501, 1002);
+
+INSERT INTO atleta_has_modalidade 
+(atleta, modalidade, idAtletaModalidade, Atleta_has_Modalidadecol, Atleta_has_Modalidadecol1) 
+VALUES 
+(1, 500, 1, 0, 0),
+(1, 501, 2, 0, 0),
+(2, 500, 3, 0, 0),
+(3, 502, 4, 0, 0),
+(4, 502, 5, 0, 0);
+
+
+INSERT INTO modalidade_has_clube (modalidade, clube, idModalidadeClube) VALUES 
+(500, 100, 1),
+(500, 101, 2),
+(500, 103, 3),
+(500, 104, 4),
+(501, 100, 5),
+(501, 101, 6),
+(501, 102, 7);
+
+SELECT * 
+FROM atleta AS t1 
+LEFT JOIN atleta_has_modalidade AS t2 
+    ON t1.idAtleta = t2.atleta 
+LEFT JOIN modalidade AS t4 
+    ON t2.modalidade = t4.idModalidade 
+LEFT JOIN modalidade_has_clube AS t3 
+    ON t4.idModalidade = t3.modalidade 
+LEFT JOIN clube AS t5 
+    ON t3.clube = t5.idClube 
+LEFT JOIN modalidade_has_treinador AS t6 
+    ON t4.idModalidade = t6.modalidade 
+LEFT JOIN treinador AS t7 
+    ON t6.treinador = t7.idTreinador;
